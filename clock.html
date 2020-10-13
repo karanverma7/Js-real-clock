@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body {
+            background-image: url(bg-image.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #container {
+            background-color: rgba(0, 0, 0, 0.85);
+            height: 100vh;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            margin: 0px;
+        }
+        #clock {
+            position: relative;
+            height: 300px;
+            width: 300px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            margin: auto;
+            border: 20px solid rgb(156, 156, 156);
+            box-shadow:
+            0 0 0 4px rgba(0,0,0,0.1),
+            inset 0 0 0 3px #EFEFEF,
+            inset 0 0 10px black,
+            0 0 10px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: rgb(228, 228, 228);
+            margin-top: 0px;
+            padding: 40px 0px ;
+        }
+        #min {
+            height: 5px;
+            width: 120px;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            right: 52%;
+            transform-origin: 100%;
+            border-radius: 2px;
+            border-radius: 50% 0px 0px 50%;
+            transform: rotate(90deg);
+            
+        }
+        #sec {
+            height: 3px;
+            width: 120px;
+            background-color: black;
+            position: absolute;
+            top: 49.8%;
+            right: 52%;
+            transform-origin: 100%;
+            border-radius: 50% 0px 0px 50%;
+            transform: rotate(90deg);
+            transition: all 0.05s;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+        #hour {
+            border-radius: 50% 0px 0px 50%;
+            height: 6px;
+            width: 80px;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            right: 52%;
+            transform-origin: 100%;
+            transform: rotate(245deg);
+        }
+        #cen {
+            background-color: black;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            position: absolute;
+            top: 49%;
+            right: 49.5%;
+            z-index: 2;
+        }
+        #credit {
+            color: white;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 60%;
+            padding: 7px 0px;
+            font-weight: 550;
+            filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.9))
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Clock</h1>
+        <div id="clock">
+            <div id="cen"></div>
+            <div id="min"></div>
+            <div id="hour"></div>
+            <div id="sec"></div>
+        </div>
+    </div>
+    <div id="credit"> 
+        <svg width="20" height="20" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M232.819 98.333L270.819 47.5H512V0H0V98.333H232.819ZM171.833 34.833H201.833V64.833H171.833V34.833ZM110.292 34.833H140.292V64.833H110.292V34.833ZM48.75 34.833H78.75V64.833H48.75V34.833Z" fill="#F7F7F7"/>
+            <path d="M285.848 77.5L247.848 128.333H0V512H512V77.5H285.848ZM178.337 381.208L157.124 402.421L72.87 318.167L157.124 233.913L178.337 255.126L115.296 318.167L178.337 381.208ZM218.643 434.901L191.358 422.431L292.358 201.431L319.643 213.901L218.643 434.901ZM354.876 402.42L333.663 381.207L396.704 318.166L333.663 255.125L354.876 233.912L439.13 318.166L354.876 402.42Z" fill="#F7F7F7"/>
+        </svg> &nbsp;
+        Developed by Karan Verma
+    </div>
+</body>
+<script>
+    const min = document.querySelector('#min')
+    const sec = document.querySelector('#sec')
+    const hour = document.querySelector('#hour')
+
+    function setDate() {
+        const now = new Date()
+        const seconds = now.getSeconds();
+        const secondsDegrees = ((seconds / 60) * 360) + 90;
+        sec.style.transform = `rotate(${secondsDegrees}deg)`;
+
+        const mins = now.getMinutes();
+        const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
+        min.style.transform = `rotate(${minsDegrees}deg)`;
+
+        const hour = now.getHours();
+        const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
+        hour.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+    setInterval(setDate, 1000)
+
+    setDate()
+</script>
+</html>
